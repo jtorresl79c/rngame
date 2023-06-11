@@ -6,7 +6,15 @@ function StartGameScreen()
     return (
     
     <View style={styles.inputContainer}>
-        <TextInput style={styles.numberInput} maxLength={2}/>
+        <TextInput 
+        style={styles.numberInput} 
+        maxLength={2} 
+        keyboardType='number-pad'
+        autoCapitalize='none' // autoCapitalize desabilita que el texto inicie con una letra mayuscula automaticamente
+        autoCorrect={false} // esto evita que el autocorrector del celular este activo, muy util al poner emails
+        // autoCapitalize y autoCorrect no tienen mucho sentido aqui, porque solo metemos numeros,
+        // pero es importante que sepamos que existen, solo por eso se pusieron aqui
+        />
         <PrimaryButton>Reset</PrimaryButton>
         <PrimaryButton>Confirm</PrimaryButton>
     </View>
