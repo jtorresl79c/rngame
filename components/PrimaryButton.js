@@ -34,10 +34,9 @@ const styles = StyleSheet.create({
     buttonOuterContainer: {
         borderRadius: 28,
         margin: 4,
-        overflow: 'hidden' // al parecer el android_ripple agrega estilos extras, haciendo que el borderRadius no se vea porque
+        overflow: 'hidden', // al parecer el android_ripple agrega estilos extras, haciendo que el borderRadius no se vea porque
         // se ve mas ancho de lo normal el Pressable, para que esto no afecte el borderRadius ponemos el overflow hidden de lo
-        // contrario el Pressable sera muy ancho y abra un overflow haciendo que el borderRadius no se vea. #ZXXS1d
-
+        // contrario el Pressable sera muy ancho y abra un overflow haciendo que el borderRadius no se vea. #ZXXS1d,
     },
     buttonInnerContainer: {
         backgroundColor: '#72063c',

@@ -1,24 +1,36 @@
-import { View, TextInput, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet, Text } from 'react-native';
 import PrimaryButton from '../components/PrimaryButton';
 
-function StartGameScreen()
-{
+function StartGameScreen() {
     return (
-    
-    <View style={styles.inputContainer}>
-        <TextInput 
-        style={styles.numberInput} 
-        maxLength={2} 
-        keyboardType='number-pad'
-        autoCapitalize='none' // autoCapitalize desabilita que el texto inicie con una letra mayuscula automaticamente
-        autoCorrect={false} // esto evita que el autocorrector del celular este activo, muy util al poner emails
-        // autoCapitalize y autoCorrect no tienen mucho sentido aqui, porque solo metemos numeros,
-        // pero es importante que sepamos que existen, solo por eso se pusieron aqui
-        />
-        <PrimaryButton>Reset</PrimaryButton>
-        <PrimaryButton>Confirm</PrimaryButton>
-    </View>
-    
+
+        <View style={styles.inputContainer}>
+
+            <View style={styles.textContainer}>
+                <Text style={styles.textItem}>Enter a Number</Text>
+            </View>
+
+            <TextInput
+                style={styles.numberInput}
+                maxLength={2}
+                keyboardType='number-pad'
+                autoCapitalize='none' // autoCapitalize desabilita que el texto inicie con una letra mayuscula automaticamente
+                autoCorrect={false} // esto evita que el autocorrector del celular este activo, muy util al poner emails
+            // autoCapitalize y autoCorrect no tienen mucho sentido aqui, porque solo metemos numeros,
+            // pero es importante que sepamos que existen, solo por eso se pusieron aqui
+            />
+
+            <View style={styles.buttonsContainer}>
+                <View style={styles.buttonContainer}>
+                    <PrimaryButton>Reset</PrimaryButton>
+                </View>
+                <View style={styles.buttonContainer}>
+                    <PrimaryButton>Confirm</PrimaryButton>
+                </View>
+            </View>
+
+        </View>
+
     )
 }
 
@@ -41,7 +53,8 @@ const styles = StyleSheet.create({
             height: 2
         },
         shadowRadius: 6,
-        shadowOpacity: 0.25
+        shadowOpacity: 0.25,
+        alignItems: 'center'
     },
     numberInput: {
         height: 50,
@@ -53,6 +66,21 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         fontWeight: 'bold',
         textAlign: 'center'
+    },
+    buttonsContainer: {
+        flexDirection: 'row'
+    },
+    buttonContainer: {
+        flex: 1
+    },
+    textContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        paddingTop: 18
+    },
+    textItem: {
+        color: '#ddb52f',
+        fontSize: 24
     }
 })
 
