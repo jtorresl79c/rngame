@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         // flex: 1,
         padding: 16,
         marginTop: 100,
-        backgroundColor: "#4e0329",
+        backgroundColor: "#3b021f",
         marginHorizontal: 24,
         borderRadius: 8,
         // Android - 'elevation' solo sirve en Android, este pone una sombra, 
