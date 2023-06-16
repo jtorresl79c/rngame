@@ -1,7 +1,20 @@
 import { View, TextInput, StyleSheet, Text } from 'react-native';
 import PrimaryButton from '../components/PrimaryButton';
 
+import { useState } from 'react';
+
 function StartGameScreen() {
+
+    [enteredNumber, setEnteredNumber] = useState('')
+
+    function numberInputHandler(enteredText){
+        setEnteredNumber(enteredText)
+    }
+
+    function confirmInputHandler(){
+        console.log(enteredNumber)
+    }
+
     return (
 
         <View style={styles.inputContainer}>
@@ -16,8 +29,10 @@ function StartGameScreen() {
                 keyboardType='number-pad'
                 autoCapitalize='none' // autoCapitalize desabilita que el texto inicie con una letra mayuscula automaticamente
                 autoCorrect={false} // esto evita que el autocorrector del celular este activo, muy util al poner emails
-            // autoCapitalize y autoCorrect no tienen mucho sentido aqui, porque solo metemos numeros,
-            // pero es importante que sepamos que existen, solo por eso se pusieron aqui
+                // autoCapitalize y autoCorrect no tienen mucho sentido aqui, porque solo metemos numeros,
+                // pero es importante que sepamos que existen, solo por eso se pusieron aqui
+                onChangeText={numberInputHandler}
+                value={enteredNumber}
             />
 
             <View style={styles.buttonsContainer}>
@@ -25,7 +40,8 @@ function StartGameScreen() {
                     <PrimaryButton>Reset</PrimaryButton>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <PrimaryButton>Confirm</PrimaryButton>
+                    <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+                    {/* onPress={confirmInputHandler} = POINTER, onPress es un prop el cual envia una funcion para que se use como callback */}
                 </View>
             </View>
 

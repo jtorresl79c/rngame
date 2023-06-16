@@ -1,6 +1,6 @@
 import { View, Text, Pressable, StyleSheet } from "react-native"
 
-function PrimaryButton(props) //function PrimaryButton({children}) destructaring sixtax
+function PrimaryButton(props) //function PrimaryButton({children, onPress}) destructaring sixtax
 {
 
     function pressHandler() {
@@ -10,7 +10,7 @@ function PrimaryButton(props) //function PrimaryButton({children}) destructaring
     return (
         <View style={styles.buttonOuterContainer}>
             <Pressable 
-                onPress={pressHandler} 
+                onPress={props.onPress} // props.onPress es un Callback.
                 android_ripple={{ color: '#640233' }} // al parecer esto vuelve invisible el contenedor, ya que el 
                 // buttonInnerContainer en su propiedad backgroundColor controla el color, si se quita esta propiedad
                 // android_ripple el boton se vuelve solido y el color de fondo ahora se deberia de controlar desde
