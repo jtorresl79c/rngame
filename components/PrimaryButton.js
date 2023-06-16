@@ -2,11 +2,6 @@ import { View, Text, Pressable, StyleSheet } from "react-native"
 
 function PrimaryButton(props) //function PrimaryButton({children, onPress}) destructaring sixtax
 {
-
-    function pressHandler() {
-        console.log('Presed!!!')
-    }
-
     return (
         <View style={styles.buttonOuterContainer}>
             <Pressable 

@@ -1,4 +1,4 @@
-import { View, TextInput, StyleSheet, Text } from 'react-native';
+import { View, TextInput, StyleSheet, Text, Alert } from 'react-native';
 import PrimaryButton from '../components/PrimaryButton';
 
 import { useState } from 'react';
@@ -11,7 +11,24 @@ function StartGameScreen() {
         setEnteredNumber(enteredText)
     }
 
+    function resetInputHandler(){
+        setEnteredNumber('')
+    }
+
     function confirmInputHandler(){
+
+        const chosenNumber = parseInt(enteredNumber)
+
+        if(isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99){
+            Alert.alert(
+                'Invalid number!', // Titulo del alert
+                'Number has to be a number between 1 and 99', // mensaje del alert
+                [{text: 'Okay', style: 'destructive', onPress: resetInputHandler}] // cada objeto en el array representa un boton del alert
+                // 1er argumento: mensaje del boton, 2do argumento: estilo del boton, 3er argumento: funcion que se ejecutara despues de 
+                // confirmar
+            )
+        }
+
         console.log(enteredNumber)
     }
 
@@ -31,13 +48,15 @@ function StartGameScreen() {
                 autoCorrect={false} // esto evita que el autocorrector del celular este activo, muy util al poner emails
                 // autoCapitalize y autoCorrect no tienen mucho sentido aqui, porque solo metemos numeros,
                 // pero es importante que sepamos que existen, solo por eso se pusieron aqui
-                onChangeText={numberInputHandler}
-                value={enteredNumber}
+                onChangeText={numberInputHandler} // con esto se controla la variable interna, pero no el valor que se muestra, porque
+                // a diferencia de vue, React no es de doble sentido, solo de uno, por lo que para que se puede controlar programaticamente
+                // se debe de especificar la propiedad value como ya esta especificado abajo.
+                value={enteredNumber} // recuerda que react no es 2-way binging por lo que se debe de especificar el valor que tiene
             />
 
             <View style={styles.buttonsContainer}>
                 <View style={styles.buttonContainer}>
-                    <PrimaryButton>Reset</PrimaryButton>
+                    <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
                 </View>
                 <View style={styles.buttonContainer}>
                     <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
