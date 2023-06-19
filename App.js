@@ -32,7 +32,7 @@ export default function App() {
           style={styles.rootScreen} // la imagen solo ocupa el tamaño que necesita, no toda la pantalla en lo alto, por lo que le damos un flex 1
           imageStyle={styles.backgroundImage} // se le agrega una opacidad al bg
           >
-        {screen} {/** 59. Switching Screens Programmatically */}
+        {screen}
       </ImageBackground>
 
     </LinearGradient>
