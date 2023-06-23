@@ -4,6 +4,7 @@ import { StyleSheet, ImageBackground} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
 
+import Colors from './constants/colors';
 import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen'
 
@@ -31,7 +32,7 @@ export default function App() {
   
 
   return (
-    <LinearGradient colors={['#4e0329', '#ddb52f']} style={styles.rootScreen}>
+    <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={styles.rootScreen}>
       <ImageBackground // para poner un bg se tiene que utilizar esta etiqueta (arriba se importo)
         source={require('./assets/images/background.png')} // se importa la imagen que queremos
         resizeMode='cover' // las pantallas de los dispositivos tienen diferentes tamaños, esto controla como se reajusta la imagen al agrandarlo

@@ -1,12 +1,14 @@
 import { View, Text, Pressable, StyleSheet } from "react-native"
 
+import Colors from "../constants/colors"
+
 function PrimaryButton(props) //function PrimaryButton({children, onPress}) destructaring sixtax
 {
     return (
         <View style={styles.buttonOuterContainer}>
             <Pressable 
                 onPress={props.onPress} // props.onPress es un Callback.
-                android_ripple={{ color: '#640233' }} // al parecer esto vuelve invisible el contenedor, ya que el 
+                android_ripple={{ color: Colors.primary600 }} // al parecer esto vuelve invisible el contenedor, ya que el 
                 // buttonInnerContainer en su propiedad backgroundColor controla el color, si se quita esta propiedad
                 // android_ripple el boton se vuelve solido y el color de fondo ahora se deberia de controlar desde
                 // buttonOuterContainer #ZXXS1
@@ -34,7 +36,7 @@ const styles = StyleSheet.create({
         // contrario el Pressable sera muy ancho y abra un overflow haciendo que el borderRadius no se vea. #ZXXS1d,
     },
     buttonInnerContainer: {
-        backgroundColor: '#72063c',
+        backgroundColor: Colors.primary500,
         paddingVertical: 8,
         paddingHorizontal: 16,
         elevation: 2
