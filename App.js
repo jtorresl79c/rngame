@@ -26,7 +26,7 @@ export default function App() {
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />
 
   if (userNumber) {
-    screen = <GameScreen />
+    screen = <GameScreen userNumber={userNumber} />
   }
   //////////// 59. Switching Screens Programmatically
   
