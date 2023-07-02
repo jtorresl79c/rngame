@@ -7,6 +7,7 @@ import { useState } from 'react';
 import Colors from './constants/colors';
 import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen'
+import GameOverScreen from './screens/GameOverScreen'
 
 // https://docs.expo.dev/versions/latest/sdk/safe-area-context/
 import {
@@ -18,16 +19,29 @@ export default function App() {
 
   // 59. Switching Screens Programmatically
   const [userNumber, setUserNumber] = useState()
+  const [gameIsOver, setGameIsOver] = useState(true) // Aqui puedes pensar que deberia de estar en false,
+  //pero cuando el juego inicia tecnicamente el juego esta en 'game over' por eso se puso en true
 
   function pickedNumberHandler(pickedNumber) {
     setUserNumber(pickedNumber)
+    setGameIsOver(false)
+  }
+
+  function gameOverHandler(){
+    setGameIsOver(true)
   }
 
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />
 
   if (userNumber) {
-    screen = <GameScreen userNumber={userNumber} />
+    screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />
   }
+
+  if(gameIsOver && userNumber){
+    screen = <GameOverScreen/>
+  }
+
+
   //////////// 59. Switching Screens Programmatically
   
 
