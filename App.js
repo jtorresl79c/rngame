@@ -1,8 +1,12 @@
 // import { StatusBar } from 'expo-status-bar';
 // import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { useCallback } from 'react';
 import { StyleSheet, ImageBackground} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+
 
 import Colors from './constants/colors';
 import StartGameScreen from './screens/StartGameScreen';
@@ -15,12 +19,28 @@ import {
 } from 'react-native-safe-area-context';
 
 
+// SplashScreen.preventAutoHideAsync();
 export default function App() {
 
   // 59. Switching Screens Programmatically
   const [userNumber, setUserNumber] = useState()
   const [gameIsOver, setGameIsOver] = useState(true) // Aqui puedes pensar que deberia de estar en false,
   //pero cuando el juego inicia tecnicamente el juego esta en 'game over' por eso se puso en true
+
+  const [fontsLoaded] = useFonts({
+    'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
+    'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   function pickedNumberHandler(pickedNumber) {
     setUserNumber(pickedNumber)

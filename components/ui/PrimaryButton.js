@@ -11,7 +11,7 @@ function PrimaryButton(props) //function PrimaryButton({children, onPress}) dest
                 android_ripple={{ color: Colors.primary600 }} // al parecer esto vuelve invisible el contenedor, ya que el 
                 // buttonInnerContainer en su propiedad backgroundColor controla el color, si se quita esta propiedad
                 // android_ripple el boton se vuelve solido y el color de fondo ahora se deberia de controlar desde
-                // buttonOuterContainer #ZXXS1
+                // buttonOuterContainer #ex
 
                 // el prop "style" puede recibir o un elemento de StyleSheet.create O una funcion, esta funcion retorna un objeto 
                 // llamado pressData, y dentro de ese objeto hay una propiedad llamada pressed (pressData.pressed), pressed es true
