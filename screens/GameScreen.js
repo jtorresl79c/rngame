@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { View, Text, StyleSheet, Alert, FlatList } from "react-native";
 
 import Title from "../components/ui/Title";
 import NumberContainer from "../components/game/NumberContainer";
@@ -87,7 +87,16 @@ function GameScreen(props) {
                 </View>
             </Card>
             <View>
-                {/* LOG ROUNDS */}
+                <FlatList data={guessRounds}
+                renderItem = {itemData => {
+                    return <Text>{itemData.item}</Text>
+                }}
+
+                keyExtractor={(item, index) => {
+                    return item // Aqui retornamos lo que queremos que valla a ser el key, en este caso es la propiedad id
+                }}
+
+                />
             </View>
         </View>
     )
