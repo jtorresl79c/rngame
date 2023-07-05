@@ -28,6 +28,7 @@ function GameScreen(props) {
     console.log(props.userNumber)
     const initialGuess = generateRandomBetween(1, 100, props.userNumber)
     const [currentGuess, setCurrentGuess] = useState(initialGuess)
+    const [guessRounds,setGuessRounds] = useState([initialGuess])
 
     useEffect( () => {
         if(currentGuess === props.userNumber){
@@ -60,6 +61,7 @@ function GameScreen(props) {
         
         const newRndNumber = generateRandomBetween(minBoundary, maxBoundary, currentGuess)
         setCurrentGuess(newRndNumber)
+        setGuessRounds(prevGuessRounds => [newRndNumber,...prevGuessRounds])
     }
 
     return (
