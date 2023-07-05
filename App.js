@@ -27,6 +27,8 @@ export default function App() {
   const [gameIsOver, setGameIsOver] = useState(true) // Aqui puedes pensar que deberia de estar en false,
   //pero cuando el juego inicia tecnicamente el juego esta en 'game over' por eso se puso en true
 
+  const [guessRounds, setGuessRounds] = useState(0)
+
   const [fontsLoaded] = useFonts({
     'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
     'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
@@ -51,6 +53,11 @@ export default function App() {
     setGameIsOver(true)
   }
 
+  function startNewGameHandler(){
+    setUserNumber(null)
+    setGuessRounds(0)
+  }
+
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />
 
   if (userNumber) {
@@ -58,7 +65,7 @@ export default function App() {
   }
 
   if(gameIsOver && userNumber){
-    screen = <GameOverScreen/>
+    screen = <GameOverScreen userNumber={userNumber} roundsNumber={guessRounds} onStartNewGame={startNewGameHandler}/>
   }
 
 
