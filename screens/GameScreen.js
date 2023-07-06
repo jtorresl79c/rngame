@@ -9,6 +9,7 @@ import InstructionText from "../components/ui/InstructionText";
 import { useEffect, useState } from "react";
 
 import {Ionicons} from '@expo/vector-icons'
+import GuessLogItem from "../components/game/GuessLogItem";
 
 
 function generateRandomBetween(min, max, exclude) {
@@ -32,7 +33,7 @@ function GameScreen(props) {
 
     useEffect( () => {
         if(currentGuess === props.userNumber){
-            props.onGameOver()
+            props.onGameOver(guessRounds.length)
         }
     },[currentGuess, props.userNumber, props.onGameOver])
 
@@ -64,6 +65,8 @@ function GameScreen(props) {
         setGuessRounds(prevGuessRounds => [newRndNumber,...prevGuessRounds])
     }
 
+    const guessRoundsListhLength = guessRounds.length
+
     return (
         <View style={styles.screen}>
             <Title>Opponent's Guess</Title>
@@ -86,10 +89,10 @@ function GameScreen(props) {
 
                 </View>
             </Card>
-            <View>
+            <View style={styles.listContainer}>
                 <FlatList data={guessRounds}
                 renderItem = {itemData => {
-                    return <Text>{itemData.item}</Text>
+                    return <GuessLogItem roundNumber={guessRoundsListhLength - itemData.index} guess={itemData.item}/>
                 }}
 
                 keyExtractor={(item, index) => {
@@ -105,7 +108,8 @@ function GameScreen(props) {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        padding: 24
+        padding: 24,
+        alignItems: 'center'
     },
     instructionText: {
         marginBottom: 12
@@ -115,6 +119,10 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flex: 1
+    },
+    listContainer: {
+        flex: 1,
+        padding: 16
     }
 })
 
