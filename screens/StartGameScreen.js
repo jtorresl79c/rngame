@@ -1,4 +1,11 @@
-import { View, TextInput, StyleSheet, Alert } from 'react-native';
+import { View, 
+    TextInput, 
+    StyleSheet, 
+    Alert, 
+    KeyboardAvoidingView, 
+    KeyboardAvoidingViewBase, 
+    ScrollView } from 'react-native';
+
 import PrimaryButton from '../components/ui/PrimaryButton';
 import Title from '../components/ui/Title'
 
@@ -42,41 +49,44 @@ function StartGameScreen(props) {
     }
 
     return (
-        <>
-            <Card style={styles.inputContainer}>
+        <ScrollView style={styles.screen}>
+            <KeyboardAvoidingView style={styles.screen} behavior="position">
+                <Card style={styles.inputContainer}>
 
-                <Title>Guess My Number</Title>
+                    <Title>Guess My Number</Title>
 
-                <View style={styles.textContainer}>
-                    <InstructionText style={styles.textItem}>Enter a Number</InstructionText>
-                </View>
-
-                <TextInput
-                    style={styles.numberInput}
-                    maxLength={2}
-                    keyboardType='number-pad'
-                    autoCapitalize='none' // autoCapitalize desabilita que el texto inicie con una letra mayuscula automaticamente
-                    autoCorrect={false} // esto evita que el autocorrector del celular este activo, muy util al poner emails
-                    // autoCapitalize y autoCorrect no tienen mucho sentido aqui, porque solo metemos numeros,
-                    // pero es importante que sepamos que existen, solo por eso se pusieron aqui
-                    onChangeText={numberInputHandler} // con esto se controla la variable interna, pero no el valor que se muestra, porque
-                    // a diferencia de vue, React no es de doble sentido, solo de uno, por lo que para que se puede controlar programaticamente
-                    // se debe de especificar la propiedad value como ya esta especificado abajo.
-                    value={enteredNumber} // recuerda que react no es 2-way binging por lo que se debe de especificar el valor que tiene
-                />
-
-                <View style={styles.buttonsContainer}>
-                    <View style={styles.buttonContainer}>
-                        <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
+                    <View style={styles.textContainer}>
+                        <InstructionText style={styles.textItem}>Enter a Number</InstructionText>
                     </View>
-                    <View style={styles.buttonContainer}>
-                        <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
-                        {/* onPress={confirmInputHandler} = POINTER, onPress es un prop el cual envia una funcion para que se use como callback */}
-                    </View>
-                </View>
 
-            </Card>
-        </>
+                    <TextInput
+                        style={styles.numberInput}
+                        maxLength={2}
+                        keyboardType='number-pad'
+                        autoCapitalize='none' // autoCapitalize desabilita que el texto inicie con una letra mayuscula automaticamente
+                        autoCorrect={false} // esto evita que el autocorrector del celular este activo, muy util al poner emails
+                        // autoCapitalize y autoCorrect no tienen mucho sentido aqui, porque solo metemos numeros,
+                        // pero es importante que sepamos que existen, solo por eso se pusieron aqui
+                        onChangeText={numberInputHandler} // con esto se controla la variable interna, pero no el valor que se muestra, porque
+                        // a diferencia de vue, React no es de doble sentido, solo de uno, por lo que para que se puede controlar programaticamente
+                        // se debe de especificar la propiedad value como ya esta especificado abajo.
+                        value={enteredNumber} // recuerda que react no es 2-way binging por lo que se debe de especificar el valor que tiene
+                    />
+
+                    <View style={styles.buttonsContainer}>
+                        <View style={styles.buttonContainer}>
+                            <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
+                        </View>
+                        <View style={styles.buttonContainer}>
+                            <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+                            {/* onPress={confirmInputHandler} = POINTER, onPress es un prop el cual envia una funcion para que se use como callback */}
+                        </View>
+                    </View>
+
+                </Card>
+            </KeyboardAvoidingView>
+        </ScrollView>
+
 
     )
 }
@@ -103,6 +113,9 @@ const styles = StyleSheet.create({
     //     shadowOpacity: 0.25,
     //     alignItems: 'center'
     // },
+    screen: {
+        flex: 1
+    },
     numberInput: {
         height: 50,
         width: 50,
