@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
+import { StatusBar } from 'expo-status-bar';
 
 import Colors from './constants/colors';
 import StartGameScreen from './screens/StartGameScreen';
@@ -74,20 +75,21 @@ export default function App() {
   
 
   return (
-    <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={styles.rootScreen}>
-      <ImageBackground // para poner un bg se tiene que utilizar esta etiqueta (arriba se importo)
-        source={require('./assets/images/background.png')} // se importa la imagen que queremos
-        resizeMode='cover' // las pantallas de los dispositivos tienen diferentes tamaños, esto controla como se reajusta la imagen al agrandarlo
-        style={styles.rootScreen} // la imagen solo ocupa el tamaño que necesita, no toda la pantalla en lo alto, por lo que le damos un flex 1
-        imageStyle={styles.backgroundImage} // se le agrega una opacidad al bg
-      >
-        <SafeAreaView style={styles.rootScreen}>
-          {screen}
-        </SafeAreaView>
-      </ImageBackground>
-
-    </LinearGradient>
-
+    <>
+      <StatusBar style='light'/>
+      <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={styles.rootScreen}>
+        <ImageBackground // para poner un bg se tiene que utilizar esta etiqueta (arriba se importo)
+          source={require('./assets/images/background.png')} // se importa la imagen que queremos
+          resizeMode='cover' // las pantallas de los dispositivos tienen diferentes tamaños, esto controla como se reajusta la imagen al agrandarlo
+          style={styles.rootScreen} // la imagen solo ocupa el tamaño que necesita, no toda la pantalla en lo alto, por lo que le damos un flex 1
+          imageStyle={styles.backgroundImage} // se le agrega una opacidad al bg
+        >
+          <SafeAreaView style={styles.rootScreen}>
+            {screen}
+          </SafeAreaView>
+        </ImageBackground>
+      </LinearGradient>
+    </>
   );
 }
 
