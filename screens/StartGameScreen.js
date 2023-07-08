@@ -3,7 +3,6 @@ import { View,
     StyleSheet, 
     Alert, 
     KeyboardAvoidingView, 
-    KeyboardAvoidingViewBase, 
     ScrollView } from 'react-native';
 
 import PrimaryButton from '../components/ui/PrimaryButton';
