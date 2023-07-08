@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Alert, FlatList } from "react-native";
+import { View, Text, StyleSheet, Alert, FlatList, useWindowDimensions } from "react-native";
 
 import Title from "../components/ui/Title";
 import NumberContainer from "../components/game/NumberContainer";
@@ -8,7 +8,7 @@ import InstructionText from "../components/ui/InstructionText";
 
 import { useEffect, useState } from "react";
 
-import {Ionicons} from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import GuessLogItem from "../components/game/GuessLogItem";
 
 
@@ -29,75 +29,105 @@ function GameScreen(props) {
     console.log(props.userNumber)
     const initialGuess = generateRandomBetween(1, 100, props.userNumber)
     const [currentGuess, setCurrentGuess] = useState(initialGuess)
-    const [guessRounds,setGuessRounds] = useState([initialGuess])
+    const [guessRounds, setGuessRounds] = useState([initialGuess])
+    const { width, heigth } = useWindowDimensions()
 
-    useEffect( () => {
-        if(currentGuess === props.userNumber){
+
+
+    useEffect(() => {
+        if (currentGuess === props.userNumber) {
             props.onGameOver(guessRounds.length)
         }
-    },[currentGuess, props.userNumber, props.onGameOver])
+    }, [currentGuess, props.userNumber, props.onGameOver])
 
 
-    useEffect( () => {
+    useEffect(() => {
         minBoundary = 1
         maxBoundary = 100
-    },[])
+    }, [])
 
-    function nextGuessHandler(direction){ // direction => 'lower', 'greater'
-        
+    function nextGuessHandler(direction) { // direction => 'lower', 'greater'
+
 
         // console.log(direction, currentGuess, props.userNumber)
-        if(direction === 'lower' && currentGuess < props.userNumber || direction === 'greater' && currentGuess > props.userNumber){
-            Alert.alert("Don't lie!", "You know that this is wrong...", [{text: 'Sorry!',style: 'cancel'}])
-            
+        if (direction === 'lower' && currentGuess < props.userNumber || direction === 'greater' && currentGuess > props.userNumber) {
+            Alert.alert("Don't lie!", "You know that this is wrong...", [{ text: 'Sorry!', style: 'cancel' }])
+
             return;
         }
 
 
-        if(direction == 'lower'){
+        if (direction == 'lower') {
             maxBoundary = currentGuess
-        }else{
+        } else {
             minBoundary = currentGuess + 1
         }
-        
+
         const newRndNumber = generateRandomBetween(minBoundary, maxBoundary, currentGuess)
         setCurrentGuess(newRndNumber)
-        setGuessRounds(prevGuessRounds => [newRndNumber,...prevGuessRounds])
+        setGuessRounds(prevGuessRounds => [newRndNumber, ...prevGuessRounds])
     }
 
     const guessRoundsListhLength = guessRounds.length
 
+    let content = <>
+        <NumberContainer>{currentGuess}</NumberContainer>
+        <Card>
+            <InstructionText style={styles.instructionText}>Higher or lower?</InstructionText>
+            <View style={styles.buttonsContainer}>
+
+                <View style={styles.buttonContainer}>
+                    <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
+                        <Ionicons name="md-remove" size={24} color="white" />
+                    </PrimaryButton>
+                </View>
+
+                <View style={styles.buttonContainer}>
+                    <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>
+                        <Ionicons name="md-add" size={24} color="white" />
+                    </PrimaryButton>
+                </View>
+
+            </View>
+        </Card>
+    </>;
+
+
+    if (width > 500) {
+        content = <>
+            {/* <InstructionText style={styles.instructionText}>Higher or lower?</InstructionText> */}
+            <View style={styles.buttonsContainerWide}>
+                <View style={styles.buttonContainer}>
+                    <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
+                        <Ionicons name="md-remove" size={24} color="white" />
+                    </PrimaryButton>
+                </View>
+
+                <NumberContainer>{currentGuess}</NumberContainer>
+
+                <View style={styles.buttonContainer}>
+                    <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>
+                        <Ionicons name="md-add" size={24} color="white" />
+                    </PrimaryButton>
+                </View>
+
+            </View>
+        </>;
+    }
+
     return (
         <View style={styles.screen}>
             <Title>Opponent's Guess</Title>
-                <NumberContainer>{currentGuess}</NumberContainer>
-            <Card>
-                <InstructionText style={styles.instructionText}>Higher or lower?</InstructionText>
-                <View style={styles.buttonsContainer}>
-
-                    <View style={styles.buttonContainer}>
-                        <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
-                            <Ionicons name="md-remove" size={24} color="white" />
-                        </PrimaryButton>
-                    </View>
-
-                    <View style={styles.buttonContainer}>
-                        <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>
-                            <Ionicons name="md-add" size={24} color="white" />
-                        </PrimaryButton>
-                    </View>
-
-                </View>
-            </Card>
+            {content}
             <View style={styles.listContainer}>
                 <FlatList data={guessRounds}
-                renderItem = {itemData => {
-                    return <GuessLogItem roundNumber={guessRoundsListhLength - itemData.index} guess={itemData.item}/>
-                }}
+                    renderItem={itemData => {
+                        return <GuessLogItem roundNumber={guessRoundsListhLength - itemData.index} guess={itemData.item} />
+                    }}
 
-                keyExtractor={(item, index) => {
-                    return item // Aqui retornamos lo que queremos que valla a ser el key, en este caso es la propiedad id
-                }}
+                    keyExtractor={(item, index) => {
+                        return item // Aqui retornamos lo que queremos que valla a ser el key, en este caso es la propiedad id
+                    }}
 
                 />
             </View>
@@ -120,6 +150,12 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flex: 1
     },
+
+    buttonsContainerWide: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+
     listContainer: {
         flex: 1,
         padding: 16
